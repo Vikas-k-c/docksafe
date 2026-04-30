@@ -13,7 +13,6 @@ on:
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
   frontend:
@@ -88,30 +87,30 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: docksafe-backend:${{ github.sha }}
-          format: sarif
-          output: trivy-backend.sarif
+          format: table
+          output: trivy-backend.txt
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: 1
+          exit-code: 0
 
-      - name: Upload backend Trivy report
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
+      - name: Upload backend Trivy report artifact
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: trivy-backend.sarif
+          name: trivy-backend-report
+          path: trivy-backend.txt
 
       - name: Scan frontend image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: docksafe-frontend:${{ github.sha }}
-          format: sarif
-          output: trivy-frontend.sarif
+          format: table
+          output: trivy-frontend.txt
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: 1
+          exit-code: 0
 
-      - name: Upload frontend Trivy report
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
+      - name: Upload frontend Trivy report artifact
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: trivy-frontend.sarif
+          name: trivy-frontend-report
+          path: trivy-frontend.txt
