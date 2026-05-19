@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: docksafe-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: FAST_SCAN_MODE
+        value: "true"
+      - key: TRIVY_IMAGE_SOURCE
+        value: remote
+      - key: TRIVY_DB_REPOSITORY
+        value: ghcr.io/aquasecurity/trivy-db:2
+      - key: SCAN_TIMEOUT_MS
+        value: "180000"
+
+  - type: web
+    name: docksafe-frontend
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

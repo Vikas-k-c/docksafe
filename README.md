@@ -68,7 +68,14 @@ http://localhost:8080
 Backend health check:
 
 ```text
-http://localhost:5000/health
+http://localhost:5001/health
+```
+
+If port `5001` is busy, choose another host port:
+
+```powershell
+$env:DOCKSAFE_BACKEND_PORT=5002
+docker compose up --build
 ```
 
 To stop the project:
@@ -101,6 +108,26 @@ docker compose up --build
 ```
 
 Real Trivy scans may take longer because Trivy downloads vulnerability databases and analyzes image layers.
+
+## Deploy On Render
+
+This repo includes `render.yaml` for Render Blueprint deployment.
+
+1. Push this project to GitHub.
+2. In Render, choose **New -> Blueprint**.
+3. Connect the GitHub repository.
+4. When Render asks for `VITE_API_URL`, enter your backend URL:
+
+```text
+https://docksafe-backend.onrender.com
+```
+
+If Render gives your backend a slightly different URL, use that exact backend URL instead. After deployment:
+
+```text
+Frontend: https://docksafe-frontend.onrender.com
+Backend health: https://docksafe-backend.onrender.com/health
+```
 
 ## Backend API
 

@@ -13,7 +13,7 @@ services:
       FAST_SCAN_MODE: true
       SCAN_TIMEOUT_MS: 180000
     ports:
-      - "5000:5000"
+      - "${DOCKSAFE_BACKEND_PORT:-5001}:5000"
     volumes:
       - trivy-cache:/root/.cache/trivy
     healthcheck:
@@ -33,7 +33,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: http://localhost:5000
+        VITE_API_URL: http://localhost:${DOCKSAFE_BACKEND_PORT:-5001}
     image: docksafe-frontend:local
     container_name: docksafe-frontend
     depends_on:

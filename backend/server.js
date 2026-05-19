@@ -46,7 +46,7 @@ const cache = new Map();
 const inFlightScans = new Map();
 let scanQueue = Promise.resolve();
 
-const PORT = Number(process.env.DOCKSAFE_PORT) || 5000;
+const PORT = Number(process.env.PORT || process.env.DOCKSAFE_PORT) || 5000;
 const DEFAULT_TRIVY_PATH = "C:\\trivy\\trivy.exe";
 const TRIVY_PATH = process.env.TRIVY_PATH || (fs.existsSync(DEFAULT_TRIVY_PATH) ? DEFAULT_TRIVY_PATH : "trivy");
 const DOCKER_PATH = process.env.DOCKER_PATH || "docker";
