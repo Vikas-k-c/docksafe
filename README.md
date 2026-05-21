@@ -1,6 +1,6 @@
 # DockSafe
 
-DockSafe is a DevSecOps-based Docker image vulnerability scanner. It provides a web interface where users can enter a Docker image name and view vulnerability risk details, remediation suggestions, image metadata, and scan summaries.
+DockSafe is  DevSecOps-based Docker image vulnerability scanner. It provides a web interface where users can enter a Docker image name and view vulnerability risk details, remediation suggestions, image metadata, and scan summaries.
 
 This project demonstrates DevSecOps practices such as containerization, CI/CD automation, dependency auditing, Docker image scanning, and security-focused reporting.
 
